@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student's Personal Information and Weekly Progress Chart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Student's Personal Information</h1>
+    <form action="{{ url_for('submit') }}" method="post">
+        <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">Name of student (Surname first):</label>
+            <input type="text" id="name" name="student_name" required><br><br>
+
+            <label for="reg_no">Registration No. of the student:</label>
+            <input type="text" id="reg_no" name="registration_no" required><br><br>
+
+            <label for="faculty">Faculty:</label>
+            <input type="text" id="faculty" name="faculty" required><br><br>
+
+            <label for="course">Course of Study:</label>
+            <input type="text" id="course" name="course_of_study" required><br><br>
+
+            <label for="year">Stage/year of study:</label>
+            <input type="text" id="year" name="stage_year_of_study" required><br><br>
+
+            <label for="company">Name and address of company/establishment attached:</label>
+            <textarea id="company" name="company_address" required></textarea><br><br>
+
+            <label for="supervisor">Name of Industry based supervisor:</label>
+            <input type="text" id="supervisor" name="supervisor_name" required><br><br>
+
+            <label for="designation">Designation:</label>
+            <input type="text" id="designation" name="designation" required><br><br>
+
+            <label for="contact">Telephone contact (Mobile):</label>
+            <input type="tel" id="contact" name="contact_number" required><br><br>
+
+            <label for="duration_from">Duration From:</label>
+            <input type="date" id="duration_from" name="duration_from" required><br><br>
+
+            <label for="duration_to">Duration To:</label>
+            <input type="date" id="duration_to" name="duration_to" required><br><br>
+        </fieldset>
+
+        <h2>Student's Weekly Progress Chart</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Activity</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monday</td>
+                    <td><textarea name="monday_activity" placeholder="Activity"></textarea></td>
+                    <td><textarea name="monday_remarks" placeholder="Remarks"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td><textarea name="tuesday_activity" placeholder="Activity"></textarea></td>
+                    <td><textarea name="tuesday_remarks" placeholder="Remarks"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td><textarea name="wednesday_activity" placeholder="Activity"></textarea></td>
+                    <td><textarea name="wednesday_remarks" placeholder="Remarks"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td><textarea name="thursday_activity" placeholder="Activity"></textarea></td>
+                    <td><textarea name="thursday_remarks" placeholder="Remarks"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+
+                    <td><textarea name="friday_activity" placeholder="Activity"></textarea></td>
+                    <td><textarea name="friday_remarks" placeholder="Remarks"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Trainee's Weekly Report</h2>
+        <p>(Please produce a summary for each week of attachment)</p>
+        <fieldset>
+            <legend>Weekly Summary</legend>
+            <label for="week_summary">Summary:</label>
+            <textarea id="week_summary" name="week_summary" rows="10" required></textarea><br><br>
+        </fieldset>
+
+        <h2>For the Use by the Industrial Supervisor Only</h2>
+        <fieldset>
+            <legend>General Comments on the Student's Progress</legend>
+            <label for="supervisor_comments">Comments:</label>
+            <textarea id="supervisor_comments" name="supervisor_comments" rows="10" required></textarea><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Supervisor's Details</legend>
+            <label for="supervisor_name_final">Name of the Supervisor:</label>
+            <input type="text" id="supervisor_name_final" name="supervisor_name_final" required><br><br>
+
+            <label for="supervisor_department">Department/Unit:</label>
+            <input type="text" id="supervisor_department" name="supervisor_department" required><br><br>
+
+            <label for="supervisor_date">Date:</label>
+            <input type="date" id="supervisor_date" name="supervisor_date" required><br><br>
+
+            <label for="supervisor_signature">Signature:</label>
+            <input type="text" id="supervisor_signature" name="supervisor_signature" required><br><br>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

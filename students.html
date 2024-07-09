@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Students Information</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Registration No</th>
+                <th>Faculty</th>
+                <th>Course of Study</th>
+                <th>Year of Study</th>
+                <th>Company Address</th>
+                <th>Supervisor Name</th>
+                <th>Designation</th>
+                <th>Contact Number</th>
+                <th>Duration From</th>
+                <th>Duration To</th>
+                <th>Weekly Summary</th>
+                <th>Supervisor Comments</th>
+                <th>Supervisor Name (Final)</th>
+                <th>Department/Unit</th>
+                <th>Date</th>
+                <th>Signature</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.registration_no }}</td>
+                <td>{{ student.faculty }}</td>
+                <td>{{ student.course_of_study }}</td>
+                <td>{{ student.stage_year_of_study }}</td>
+                <td>{{ student.company_address }}</td>
+                <td>{{ student.supervisor_name }}</td>
+                <td>{{ student.designation }}</td>
+                <td>{{ student.contact_number }}</td>
+                <td>{{ student.duration_from }}</td>
+                <td>{{ student.duration_to }}</td>
+                <td>{{ student.weekly_summary }}</td>
+                <td>{{ student.supervisor_comments }}</td>
+                <td>{{ student.supervisor_name_final }}</td>
+                <td>{{ student.supervisor_department }}</td>
+                <td>{{ student.supervisor_date }}</td>
+                <td>{{ student.supervisor_signature }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
