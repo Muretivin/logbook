@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date, datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class Student(db.Model):
@@ -41,13 +44,13 @@ def submit():
         supervisor_name = request.form['supervisor_name']
         designation = request.form['designation']
         contact_number = request.form['contact_number']
-        duration_from = request.form['duration_from']
-        duration_to = request.form['duration_to']
+        duration_from = datetime.strptime(request.form['duration_from'], '%Y-%m-%d').date()
+        duration_to = datetime.strptime(request.form['duration_to'], '%Y-%m-%d').date()
         weekly_summary = request.form['week_summary']
         supervisor_comments = request.form['supervisor_comments']
         supervisor_name_final = request.form['supervisor_name_final']
         supervisor_department = request.form['supervisor_department']
-        supervisor_date = request.form['supervisor_date']
+        supervisor_date = datetime.strptime(request.form['supervisor_date'], '%Y-%m-%d').date()
         supervisor_signature = request.form['supervisor_signature']
 
         new_student = Student(student_name=student_name, registration_no=registration_no, faculty=faculty,
@@ -69,5 +72,6 @@ def show_students():
     return render_template('students.html', students=students)
 
 if __name__ == '__main__':
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
