@@ -4,55 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Information</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='daystar_logo.png') }}" alt="Daystar University of Kenya Logo">
+        <h1>Daystar University of Kenya</h1>
+    </div>
     <h1>Students Information</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Registration No</th>
-                <th>Faculty</th>
-                <th>Course of Study</th>
-                <th>Year of Study</th>
-                <th>Company Address</th>
-                <th>Supervisor Name</th>
-                <th>Designation</th>
-                <th>Contact Number</th>
-                <th>Duration From</th>
-                <th>Duration To</th>
-                <th>Weekly Summary</th>
-                <th>Supervisor Comments</th>
-                <th>Supervisor Name (Final)</th>
-                <th>Department/Unit</th>
-                <th>Date</th>
-                <th>Signature</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in students %}
-            <tr>
-                <td>{{ student.student_name }}</td>
-                <td>{{ student.registration_no }}</td>
-                <td>{{ student.faculty }}</td>
-                <td>{{ student.course_of_study }}</td>
-                <td>{{ student.stage_year_of_study }}</td>
-                <td>{{ student.company_address }}</td>
-                <td>{{ student.supervisor_name }}</td>
-                <td>{{ student.designation }}</td>
-                <td>{{ student.contact_number }}</td>
-                <td>{{ student.duration_from }}</td>
-                <td>{{ student.duration_to }}</td>
-                <td>{{ student.weekly_summary }}</td>
-                <td>{{ student.supervisor_comments }}</td>
-                <td>{{ student.supervisor_name_final }}</td>
-                <td>{{ student.supervisor_department }}</td>
-                <td>{{ student.supervisor_date }}</td>
-                <td>{{ student.supervisor_signature }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <label>(click each row to view every week's details)</label>
+    <div class="container">
+        <table id="students-table">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Name</th>
+                    <th>Registration No</th>
+                    <th>Faculty</th>
+                    <th>Course of Study</th>
+                    <th>Year of Study</th>
+                    <th>Company Address</th>
+                    <th>Supervisor Name</th>
+                    <th>Designation</th>
+                    <th>Contact Number</th>
+                    <th>Duration From</th>
+                    <th>Duration To</th>
+                    <th>Weekly Summary</th>
+                    <th>Supervisor Comments</th>
+                    <th>Supervisor Name (Final)</th>
+                    <th>Department/Unit</th>
+                    <th>Date</th>
+                    <th>Signature</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr onclick="showDetails('{{ student.monday_activity }}', '{{ student.monday_remarks }}', '{{ student.tuesday_activity }}', '{{ student.tuesday_remarks }}', '{{ student.wednesday_activity }}', '{{ student.wednesday_remarks }}', '{{ student.thursday_activity }}', '{{ student.thursday_remarks }}', '{{ student.friday_activity }}', '{{ student.friday_remarks }}', '{{ student.weekly_summary }}', '{{ student.supervisor_comments }}')">
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.student_name }}</td>
+                    <td>{{ student.registration_no }}</td>
+                    <td>{{ student.faculty }}</td>
+                    <td>{{ student.course_of_study }}</td>
+                    <td>{{ student.stage_year_of_study }}</td>
+                    <td>{{ student.company_address }}</td>
+                    <td>{{ student.supervisor_name }}</td>
+                    <td>{{ student.designation }}</td>
+                    <td>{{ student.contact_number }}</td>
+                    <td>{{ student.duration_from }}</td>
+                    <td>{{ student.duration_to }}</td>
+                    <td>{{ student.weekly_summary }}</td>
+                    <td>{{ student.supervisor_comments }}</td>
+                    <td>{{ student.supervisor_name_final }}</td>
+                    <td>{{ student.supervisor_department }}</td>
+                    <td>{{ student.supervisor_date }}</td>
+                    <td>{{ student.supervisor_signature }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div id="student-details" class="hidden">
+            <h2>Student's Weekly Progress Chart</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>DESCRIPTION OF WORK DONE</th>
+                        <th>NEW SKILLS LEARNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td id="monday_activity"></td>
+                        <td id="monday_remarks"></td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td id="tuesday_activity"></td>
+                        <td id="tuesday_remarks"></td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td id="wednesday_activity"></td>
+                        <td id="wednesday_remarks"></td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td id="thursday_activity"></td>
+                        <td id="thursday_remarks"></td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td id="friday_activity"></td>
+                        <td id="friday_remarks"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Weekly Summary</h2>
+            <p id="weekly_summary"></p>
+            <h2>Supervisor Comments</h2>
+            <p id="supervisor_comments"></p>
+        </div>
+    </div>
+
+    <button onclick="location.href='{{ url_for('index') }}'">Back to LogForm</button>
+
+    <script>
+        function showDetails(mondayActivity, mondayRemarks, tuesdayActivity, tuesdayRemarks, wednesdayActivity, wednesdayRemarks, thursdayActivity, thursdayRemarks, fridayActivity, fridayRemarks, weeklySummary, supervisorComments) {
+            document.getElementById('monday_activity').innerText = mondayActivity;
+            document.getElementById('monday_remarks').innerText = mondayRemarks;
+
+            document.getElementById('tuesday_activity').innerText = tuesdayActivity;
+            document.getElementById('tuesday_remarks').innerText = tuesdayRemarks;
+
+            document.getElementById('wednesday_activity').innerText = wednesdayActivity;
+            document.getElementById('wednesday_remarks').innerText = wednesdayRemarks;
+
+            document.getElementById('thursday_activity').innerText = thursdayActivity;
+            document.getElementById('thursday_remarks').innerText = thursdayRemarks;
+
+            document.getElementById('friday_activity').innerText = fridayActivity;
+            document.getElementById('friday_remarks').innerText = fridayRemarks;
+
+            document.getElementById('weekly_summary').innerText = weeklySummary;
+
+            document.getElementById('supervisor_comments').innerText = supervisorComments;
+
+            document.getElementById('student-details').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>

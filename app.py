@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date, datetime
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
@@ -21,6 +21,16 @@ class Student(db.Model):
     contact_number = db.Column(db.String(20), nullable=False)
     duration_from = db.Column(db.Date, nullable=False)
     duration_to = db.Column(db.Date, nullable=False)
+    monday_activity = db.Column(db.Text, nullable=False)
+    monday_remarks = db.Column(db.Text, nullable=False)
+    tuesday_activity = db.Column(db.Text, nullable=False)
+    tuesday_remarks = db.Column(db.Text, nullable=False)
+    wednesday_activity = db.Column(db.Text, nullable=False)
+    wednesday_remarks = db.Column(db.Text, nullable=False)
+    thursday_activity = db.Column(db.Text, nullable=False)
+    thursday_remarks = db.Column(db.Text, nullable=False)
+    friday_activity = db.Column(db.Text, nullable=False)
+    friday_remarks = db.Column(db.Text, nullable=False)
     weekly_summary = db.Column(db.Text, nullable=False)
     supervisor_comments = db.Column(db.Text, nullable=False)
     supervisor_name_final = db.Column(db.String(100), nullable=False)
@@ -46,20 +56,37 @@ def submit():
         contact_number = request.form['contact_number']
         duration_from = datetime.strptime(request.form['duration_from'], '%Y-%m-%d').date()
         duration_to = datetime.strptime(request.form['duration_to'], '%Y-%m-%d').date()
-        weekly_summary = request.form['week_summary']
+        monday_activity = request.form['monday_activity']
+        monday_remarks = request.form['monday_remarks']
+        tuesday_activity = request.form['tuesday_activity']
+        tuesday_remarks = request.form['tuesday_remarks']
+        wednesday_activity = request.form['wednesday_activity']
+        wednesday_remarks = request.form['wednesday_remarks']
+        thursday_activity = request.form['thursday_activity']
+        thursday_remarks = request.form['thursday_remarks']
+        friday_activity = request.form['friday_activity']
+        friday_remarks = request.form['friday_remarks']
+        weekly_summary = request.form['weekly_summary']
         supervisor_comments = request.form['supervisor_comments']
         supervisor_name_final = request.form['supervisor_name_final']
         supervisor_department = request.form['supervisor_department']
         supervisor_date = datetime.strptime(request.form['supervisor_date'], '%Y-%m-%d').date()
         supervisor_signature = request.form['supervisor_signature']
 
-        new_student = Student(student_name=student_name, registration_no=registration_no, faculty=faculty,
-                              course_of_study=course_of_study, stage_year_of_study=stage_year_of_study,
-                              company_address=company_address, supervisor_name=supervisor_name, designation=designation,
-                              contact_number=contact_number, duration_from=duration_from, duration_to=duration_to,
-                              weekly_summary=weekly_summary, supervisor_comments=supervisor_comments,
-                              supervisor_name_final=supervisor_name_final, supervisor_department=supervisor_department,
-                              supervisor_date=supervisor_date, supervisor_signature=supervisor_signature)
+        new_student = Student(
+            student_name=student_name, registration_no=registration_no, faculty=faculty,
+            course_of_study=course_of_study, stage_year_of_study=stage_year_of_study,
+            company_address=company_address, supervisor_name=supervisor_name, designation=designation,
+            contact_number=contact_number, duration_from=duration_from, duration_to=duration_to,
+            monday_activity=monday_activity, monday_remarks=monday_remarks,
+            tuesday_activity=tuesday_activity, tuesday_remarks=tuesday_remarks,
+            wednesday_activity=wednesday_activity, wednesday_remarks=wednesday_remarks,
+            thursday_activity=thursday_activity, thursday_remarks=thursday_remarks,
+            friday_activity=friday_activity, friday_remarks=friday_remarks,
+            weekly_summary=weekly_summary, supervisor_comments=supervisor_comments,
+            supervisor_name_final=supervisor_name_final, supervisor_department=supervisor_department,
+            supervisor_date=supervisor_date, supervisor_signature=supervisor_signature
+        )
 
         db.session.add(new_student)
         db.session.commit()
